@@ -2,7 +2,7 @@
 
 A production-ready Flask backend service that evaluates CVs and project reports using LLM-powered analysis with RAG (Retrieval-Augmented Generation) pipeline.
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 This system implements a sophisticated evaluation pipeline with:
 
@@ -30,7 +30,7 @@ This system implements a sophisticated evaluation pipeline with:
 7. Returns complete evaluation with scores
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Test-Backend/
@@ -120,7 +120,7 @@ Test-Backend/
    celery -A app.celery_app worker --pool=solo --loglevel=info
    ```
 
-9. **API is ready at `http://localhost:5001`** 🎉
+9. **API is ready at `http://localhost:5001`**
 
 ### Option 2: Docker Setup
 
@@ -143,7 +143,7 @@ Test-Backend/
    docker-compose exec api python -c "from app.services.vector_store import VectorStoreService; vs = VectorStoreService(); vs.seed_initial_data()"
    ```
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### 1. Health Check
 
@@ -302,7 +302,7 @@ List all jobs with optional filtering.
 }
 ```
 
-## 🧪 Testing
+## Testing
 
 Run tests with pytest:
 
@@ -317,7 +317,7 @@ pytest --cov=app tests/
 pytest tests/test_api.py -v
 ```
 
-## 🔧 Configuration
+## Configuration
 
 All configuration is managed through environment variables in `.env`:
 
@@ -333,7 +333,7 @@ All configuration is managed through environment variables in `.env`:
 | `UPLOAD_FOLDER` | Upload directory | ./uploads |
 | `MAX_FILE_SIZE` | Max file size in bytes | 10485760 (10MB) |
 
-## 📊 Evaluation Rubrics
+## Evaluation Rubrics
 
 ### CV Evaluation (1-5 scale each)
 
@@ -360,7 +360,7 @@ All configuration is managed through environment variables in `.env`:
 - **Maybe**: Overall score 2.0-2.9
 - **Not Recommended**: Overall score < 2.0
 
-## 🔥 Error Handling
+## Error Handling
 
 The system implements comprehensive error handling:
 
@@ -370,21 +370,21 @@ The system implements comprehensive error handling:
 - **Job Tracking**: Failed jobs marked with error messages
 - **HTTP Status Codes**: Proper error responses with details
 
-## 💰 Why Gemini?
+## Why Gemini?
 
 Google Gemini provides **fast and accurate AI evaluation**:
 
-✅ **High Quality** - Advanced AI model with excellent reasoning  
-✅ **Fast Processing** - Quick response times for evaluations  
-✅ **Reliable** - Google's robust infrastructure  
-✅ **Easy Integration** - Simple API with good documentation  
-✅ **Cost Effective** - Competitive pricing for API usage  
-✅ **Scalable** - Handles high volume evaluations  
+- **High Quality** - Advanced AI model with excellent reasoning  
+- **Fast Processing** - Quick response times for evaluations  
+- **Reliable** - Google's robust infrastructure  
+- **Easy Integration** - Simple API with good documentation  
+- **Cost Effective** - Competitive pricing for API usage  
+- **Scalable** - Handles high volume evaluations  
 
 **Model Used:**
 - `gemini-2.0-flash` - Fast, accurate model for evaluation tasks
 
-## 🚦 Production Deployment
+## Production Deployment
 
 ### Docker Production Setup
 
@@ -413,7 +413,7 @@ Google Gemini provides **fast and accurate AI evaluation**:
 - Enable **rate limiting** on API endpoints
 - Set up **monitoring** (Sentry, DataDog, etc.)
 
-## 🛠️ Development
+## Development
 
 ### Code Quality
 
@@ -432,15 +432,15 @@ flake8 app/ tests/
 3. Update schemas in `app/api/schemas.py`
 4. Re-seed vector store
 
-## 📝 License
+## License
 
 This project is part of a technical assessment for backend developer position.
 
-## 🤝 Support
+## Support
 
 For issues or questions, please contact the development team.
 
 ---
 
-**Built with ❤️ using Flask, Celery, ChromaDB, and Google Gemini**
+**Built with Flask, Celery, ChromaDB, and Google Gemini**
 

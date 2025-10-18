@@ -1,4 +1,4 @@
-# ⚡ Quick Start Guide
+# Quick Start Guide
 
 Get the CV Evaluation System running in 5 minutes!
 
@@ -10,13 +10,13 @@ Get the CV Evaluation System running in 5 minutes!
 
 ## Step-by-Step Setup
 
-### 1️⃣ Get Gemini API Key
+### 1. Get Gemini API Key
 
 1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
 2. Create a new API key
 3. Copy the API key (you'll need it in step 3)
 
-### 2️⃣ Install Python Dependencies
+### 2. Install Python Dependencies
 
 ```bash
 cd Test-Backend
@@ -29,7 +29,7 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Create Environment File
+### 3. Create Environment File
 
 ```bash
 cat > .env << 'EOF'
@@ -50,7 +50,7 @@ EOF
 
 **Important:** Replace `your-gemini-api-key-here` with your actual Gemini API key!
 
-### 4️⃣ Initialize Database & Vector Store
+### 4. Initialize Database & Vector Store
 
 ```bash
 # Create database
@@ -60,7 +60,7 @@ python -c "from app import create_app; from app.models import db; app = create_a
 python -c "from app.services.vector_store import VectorStoreService; vs = VectorStoreService(); vs.seed_initial_data()"
 ```
 
-### 5️⃣ Start Redis
+### 5. Start Redis
 
 Open **Terminal 1**:
 ```bash
@@ -76,7 +76,7 @@ redis-server
 # https://github.com/microsoftarchive/redis/releases
 ```
 
-### 6️⃣ Start Flask API
+### 6. Start Flask API
 
 Open **Terminal 2**:
 ```bash
@@ -89,7 +89,7 @@ You should see:
  * Running on http://0.0.0.0:5001
 ```
 
-### 7️⃣ Start Celery Worker
+### 7. Start Celery Worker
 
 Open **Terminal 3**:
 ```bash
@@ -100,7 +100,7 @@ celery -A app.celery_app worker --pool=solo --loglevel=info
 
 **Note:** We use `--pool=solo` because ChromaDB doesn't work well with Celery's default multiprocessing (fork) pool on macOS.
 
-## 🎉 Test It!
+## Test It!
 
 ### Health Check
 
@@ -149,7 +149,7 @@ curl -X POST http://localhost:5001/api/evaluate \
 curl http://localhost:5001/api/result/xyz789...
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### "ModuleNotFoundError: No module named 'google.generativeai'"
 
@@ -182,7 +182,7 @@ cat .env | grep GEMINI_API_KEY
 python -c "import google.generativeai as genai; genai.configure(api_key='your-key'); print('API key works!')"
 ```
 
-## 📝 Summary of Running Services
+## Summary of Running Services
 
 You should have 3 terminals running:
 
@@ -190,7 +190,7 @@ You should have 3 terminals running:
 2. **Flask API** - `python app/main.py`
 3. **Celery Worker** - `celery -A app.celery_app worker --pool=solo --loglevel=info`
 
-## 🔄 Daily Usage
+## Daily Usage
 
 After initial setup, to start the system:
 
@@ -209,7 +209,7 @@ source venv/bin/activate
 celery -A app.celery_app worker --pool=solo --loglevel=info
 ```
 
-## 🎯 Next Steps
+## Next Steps
 
 - Read [API_DOCUMENTATION.md](API_DOCUMENTATION.md) for API details
 - Check [README.md](README.md) for advanced features

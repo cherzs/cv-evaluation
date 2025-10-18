@@ -24,9 +24,9 @@ A production-ready Flask backend service that automates candidate screening thro
 
 ## 3. Repository Link
 
-🔗 **GitHub Repository:** `github.com/[username]/ai-cv-evaluator`
+**GitHub Repository:** `github.com/[username]/ai-cv-evaluator`
 
-⚠️ **Note:** Repository does not contain any proprietary references. All code is original and properly documented.
+**Note:** Repository does not contain any proprietary references. All code is original and properly documented.
 
 ---
 
@@ -834,13 +834,13 @@ track record with backend development projects...
 This project demonstrates a production-ready approach to automating candidate evaluation using modern AI techniques. The combination of local LLM (Ollama), RAG pipeline (ChromaDB), and async processing (Celery) creates a robust, cost-effective solution that can scale to handle real hiring workflows.
 
 Key achievements:
-- ✅ Complete functional requirements (upload, evaluate, retrieve)
-- ✅ Proper LLM integration with structured output
-- ✅ RAG pipeline with semantic search
-- ✅ Weighted scoring aligned with business metrics
-- ✅ Comprehensive error handling and resilience
-- ✅ Professional documentation and testing interface
-- ✅ Field mismatch detection (tech CV → barista = rejected)
+- Complete functional requirements (upload, evaluate, retrieve)
+- Proper LLM integration with structured output
+- RAG pipeline with semantic search
+- Weighted scoring aligned with business metrics
+- Comprehensive error handling and resilience
+- Professional documentation and testing interface
+- Field mismatch detection (tech CV → barista = rejected)
 
 The system is ready for real-world testing and can be extended with authentication, batch processing, and advanced analytics for production deployment.
 
