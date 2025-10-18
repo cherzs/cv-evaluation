@@ -1,7 +1,7 @@
 #!/bin/bash
 # Start Celery worker with solo pool (fixes ChromaDB multiprocessing issues)
 
-echo "🚀 Starting Celery worker with solo pool..."
+echo " Starting Celery worker with solo pool..."
 echo "📝 This fixes SIGSEGV errors with ChromaDB"
 echo "🔕 Disabling ChromaDB telemetry"
 echo ""

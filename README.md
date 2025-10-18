@@ -67,7 +67,7 @@ Test-Backend/
 └── README.md                    # This file
 ```
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Option 1: Local Development (Recommended)
 
