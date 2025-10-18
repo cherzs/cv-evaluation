@@ -11,7 +11,6 @@ This system implements a sophisticated evaluation pipeline with:
 - **ChromaDB**: Vector database for semantic search and RAG
 - **Google Gemini**: AI-powered evaluation with structured scoring - FAST & ACCURATE
 - **SQLite/PostgreSQL**: Job tracking and result storage
-- **Docker**: Containerized deployment for easy scaling
 
 ### System Flow
 
@@ -62,9 +61,8 @@ Test-Backend/
 │   └── test_api.py              # API tests
 ├── config.py                    # Configuration
 ├── requirements.txt             # Python dependencies
-├── Dockerfile                   # Docker image
-├── docker-compose.yml           # Multi-container setup
-└── README.md                    # This file
+├── .gitignore                  # Git exclusions
+└── README.md                   # This file
 ```
 
 ##  Quick Start
@@ -121,27 +119,6 @@ Test-Backend/
    ```
 
 9. **API is ready at `http://localhost:5001`**
-
-### Option 2: Docker Setup
-
-1. **Configure Environment**
-   ```bash
-   # Copy the example environment file
-   cp env.example .env
-   
-   # Edit .env and add your Gemini API key
-   GEMINI_API_KEY=your-api-key-here
-   ```
-
-2. **Start containers**
-   ```bash
-   docker-compose up -d
-   ```
-
-3. **Seed vector store**
-   ```bash
-   docker-compose exec api python -c "from app.services.vector_store import VectorStoreService; vs = VectorStoreService(); vs.seed_initial_data()"
-   ```
 
 ## API Endpoints
 
@@ -384,35 +361,6 @@ Google Gemini provides **fast and accurate AI evaluation**:
 **Model Used:**
 - `gemini-2.0-flash` - Fast, accurate model for evaluation tasks
 
-## Production Deployment
-
-### Docker Production Setup
-
-1. **Update docker-compose.yml** to use PostgreSQL:
-   ```yaml
-   # Uncomment postgres service and update DATABASE_URL
-   ```
-
-2. **Set production environment variables**:
-   ```bash
-   FLASK_ENV=production
-   SECRET_KEY=<strong-random-key>
-   ```
-
-3. **Deploy**:
-   ```bash
-   docker-compose -f docker-compose.yml up -d
-   ```
-
-### Environment Variables for Production
-
-- Use **strong SECRET_KEY**
-- Use **PostgreSQL** instead of SQLite
-- Set **FLASK_ENV=production**
-- Configure proper **logging**
-- Enable **rate limiting** on API endpoints
-- Set up **monitoring** (Sentry, DataDog, etc.)
-
 ## Development
 
 ### Code Quality
@@ -431,6 +379,15 @@ flake8 app/ tests/
 2. Modify LLM prompts in `app/services/llm_pipeline.py`
 3. Update schemas in `app/api/schemas.py`
 4. Re-seed vector store
+
+### Frontend
+
+The project includes a simple HTML/CSS/JavaScript frontend for testing the API:
+
+- **Location**: `static/index.html`
+- **Technology**: Vanilla HTML, CSS, JavaScript (no frameworks)
+- **Features**: File upload, job monitoring, result visualization
+- **Access**: Available at `http://localhost:5001` when Flask is running
 
 ## License
 

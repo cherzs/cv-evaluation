@@ -8,23 +8,23 @@
 
 **AI-Powered CV and Project Evaluation System using LLM + RAG Pipeline**
 
-A production-ready Flask backend service that automates candidate screening through intelligent evaluation of CVs and project reports using Google Gemini LLM with Retrieval-Augmented Generation.
+A robust Flask backend service that automates candidate screening through intelligent evaluation of CVs and project reports using Google Gemini LLM with Retrieval-Augmented Generation.
 
 ---
 
 ## 2. Candidate Information
 
-**Full Name:** [Your Full Name]
+**Full Name:** Muhammad Zhafran Ghaly
 
-**Email Address:** [your.email@example.com]
+**Email Address:** zhafrang638@gmail.com
 
-**Submission Date:** [Date]
+**Submission Date:** October 18, 2025
 
 ---
 
 ## 3. Repository Link
 
-**GitHub Repository:** `github.com/[username]/ai-cv-evaluator`
+**GitHub Repository:** https://github.com/cherzs/cv-evaluation
 
 **Note:** Repository does not contain any proprietary references. All code is original and properly documented.
 
@@ -681,7 +681,7 @@ GET http://127.0.0.1:5001/api/result/32cc9cef-8f2c-4444-a493-5865aee1edd7
       "resilience_score": 3,
       "documentation_score": 4,
       "creativity_score": 3,
-      "project_feedback": "The project submission demonstrates a solid understanding of the requirements. The implementation includes proper prompt chaining, RAG pipeline with ChromaDB, and async processing with Celery. Code quality is good with modular structure and clear separation of concerns. Resilience could be improved with more comprehensive retry mechanisms and edge case handling. Documentation is thorough with clear README, API documentation, and setup instructions. The candidate showed creativity by adding a frontend dashboard and comprehensive error handling, though could have gone further with features like authentication or deployment automation."
+      "project_feedback": "The project submission demonstrates a solid understanding of the requirements. The implementation includes proper prompt chaining, RAG pipeline with ChromaDB, and async processing with Celery. Code quality is good with modular structure and clear separation of concerns. Resilience could be improved with more comprehensive retry mechanisms and edge case handling. Documentation is thorough with clear README, API documentation, and setup instructions. The candidate showed creativity by adding a simple frontend interface and comprehensive error handling, though could have gone further with features like authentication."
     },
     "final_summary": "The candidate demonstrates strong technical skills and a successful track record with backend development projects. Their experience with AI-powered systems, vector databases, and async processing aligns well with the company's focus on innovation. The project submission shows solid engineering practices and attention to documentation. With some additional experience in production environments and resilience patterns, they would be an excellent fit for this Backend Developer role.",
     "recommendation": "Recommended",
@@ -723,11 +723,11 @@ GET http://127.0.0.1:5001/api/jobs?status=completed
 
 ---
 
-### 6.6 Frontend Dashboard Screenshot
+### 6.6 Frontend Interface Screenshot
 
 **URL:** `http://127.0.0.1:5001`
 
-The frontend provides a clean, monochrome UI with three columns:
+The frontend provides a clean, monochrome UI with four sections:
 1. **Upload Files**: Choose CV and Project Report PDFs
 2. **Start Evaluation**: Enter job title and trigger evaluation
 3. **View Results**: See evaluation scores with weighted percentages
@@ -759,14 +759,14 @@ track record with backend development projects...
 
 ## 7. (Optional) Bonus Work
 
-### 7.1 Frontend Dashboard
+### 7.1 Frontend Interface
 
-**Implementation:** Single-page application (vanilla JS + HTML/CSS)
+**Implementation:** Simple HTML/CSS/JavaScript (no frameworks)
 
 **Features:**
-- File upload with drag-and-drop support
+- File upload interface
 - Real-time job status polling with auto-refresh
-- Beautiful result visualization with weighted scoring display
+- Result visualization with weighted scoring display
 - Job history with filter by status
 - Responsive design (desktop + mobile)
 - Monochrome theme for professional look
@@ -775,19 +775,18 @@ track record with backend development projects...
 
 ---
 
-### 7.2 Multiple Job Descriptions
+### 7.2 General Evaluation Guidelines
 
-**Added 5 job descriptions to vector store:**
-1. Backend Developer
-2. Barista
-3. Data Analyst
-4. Frontend Developer
-5. Full Stack Developer
+**Replaced specific job descriptions with general guidelines:**
+- General Job Evaluation Guidelines
+- CV Evaluation Guidelines  
+- Project Evaluation Guidelines
+- Case Study Brief
 
 **Value:** 
-- Demonstrates RAG flexibility
-- Tests field mismatch detection
-- Shows semantic search accuracy
+- More flexible for testing any job position
+- Demonstrates RAG adaptability
+- Shows semantic search accuracy across different domains
 
 ---
 
@@ -806,12 +805,13 @@ track record with backend development projects...
 
 ### 7.4 Documentation Suite
 
-**Created multiple docs:**
-- `README.md`: Comprehensive project overview
-- `API_DOCUMENTATION.md`: Detailed API specs
-- `QUICKSTART.md`: Fast setup guide
-- `OLLAMA_SETUP.md`: LLM installation guide
-- `TROUBLESHOOTING.md`: Common issues and solutions (deleted later, merged into README)
+**Created comprehensive documentation:**
+- `README.md`: Complete project overview and setup
+- `API_DOCUMENTATION.md`: Detailed API specifications with examples
+- `QUICKSTART.md`: Step-by-step setup guide
+- `CASE_STUDY_SUBMISSION.md`: Detailed technical submission
+- `.gitignore`: Proper version control exclusions
+- `env.example`: Environment configuration template
 
 **Value:** Makes project accessible to other developers and evaluators.
 
@@ -831,7 +831,7 @@ track record with backend development projects...
 
 ## 8. Conclusion
 
-This project demonstrates a production-ready approach to automating candidate evaluation using modern AI techniques. The combination of local LLM (Ollama), RAG pipeline (ChromaDB), and async processing (Celery) creates a robust, cost-effective solution that can scale to handle real hiring workflows.
+This project demonstrates a robust approach to automating candidate evaluation using modern AI techniques. The combination of Google Gemini LLM, RAG pipeline (ChromaDB), and async processing (Celery) creates a scalable solution that can handle real hiring workflows.
 
 Key achievements:
 - Complete functional requirements (upload, evaluate, retrieve)
@@ -842,7 +842,7 @@ Key achievements:
 - Professional documentation and testing interface
 - Field mismatch detection (tech CV → barista = rejected)
 
-The system is ready for real-world testing and can be extended with authentication, batch processing, and advanced analytics for production deployment.
+The system is ready for real-world testing and can be extended with authentication, batch processing, and advanced analytics.
 
 ---
 

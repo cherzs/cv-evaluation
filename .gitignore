@@ -176,9 +176,6 @@ Thumbs.db
 secrets.json
 config.json
 
-# Docker
-.dockerignore
-
 # Redis dump
 dump.rdb
 
