@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Evaluation System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            font-size: 0.7rem;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 12px 0;
+            text-align: center;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 0.6rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            width: 100%;
+            padding: 8px;
+            max-width: 100%;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 8px;
+            height: calc(100vh - 70px);
+        }
+
+        .top-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            height: auto;
+        }
+
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            height: 1fr;
+        }
+
+        .column {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+            padding-right: 3px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-1px);
+        }
+
+        .card.tall {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .card h2 {
+            color: #2c3e50;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .step-number {
+            background: #2c3e50;
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 6px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 3px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.7rem;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 4px 6px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #2c3e50;
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 80px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: #34495e;
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: #7f8c8d;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: #95a5a6;
+        }
+
+        .btn-success {
+            background: #000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-success:hover {
+            background: #2c3e50;
+        }
+
+        .response-box {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid #2c3e50;
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+        }
+
+        .response-box.show {
+            display: flex;
+            flex-direction: column;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .response-box.success {
+            border-left-color: #000;
+            background: #e8e8e8;
+        }
+
+        .response-box.error {
+            border-left-color: #555;
+            background: #ddd;
+        }
+
+        .response-box pre {
+            margin: 8px 0 0 0;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .response-box p {
+            margin: 0 0 6px 0;
+            font-size: 0.8rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .status-queued { background: #bdc3c7; color: #000; }
+        .status-processing { background: #7f8c8d; color: white; }
+        .status-completed { background: #000; color: white; }
+        .status-failed { background: #555; color: white; }
+
+        .jobs-container {
+            flex: 1;
+            overflow-y: auto;
+            margin-top: 8px;
+            min-height: 0;
+        }
+
+        .job-item {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .job-item:hover {
+            border-color: #2c3e50;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .job-title {
+            font-weight: 700;
+            color: #333;
+            font-size: 0.85rem;
+        }
+
+        .job-meta {
+            font-size: 0.7rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background: #ecf0f1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid #2c3e50;
+            font-size: 0.75rem;
+        }
+
+        .info-box strong {
+            color: #000;
+        }
+
+        .result-summary {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .result-summary h3 {
+            color: #2c3e50;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .score-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 3px solid #2c3e50;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .score-label {
+            font-size: 0.7rem;
+            color: #666;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+
+        .score-value {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #000;
+        }
+
+        .column::-webkit-scrollbar,
+        .jobs-container::-webkit-scrollbar,
+        .response-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .column::-webkit-scrollbar-track,
+        .jobs-container::-webkit-scrollbar-track,
+        .response-box::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .column::-webkit-scrollbar-thumb,
+        .jobs-container::-webkit-scrollbar-thumb,
+        .response-box::-webkit-scrollbar-thumb {
+            background: #2c3e50;
+            border-radius: 10px;
+        }
+
+        .column::-webkit-scrollbar-thumb:hover,
+        .jobs-container::-webkit-scrollbar-thumb:hover,
+        .response-box::-webkit-scrollbar-thumb:hover {
+            background: #34495e;
+        }
+
+        details summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 6px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            user-select: none;
+        }
+
+        details summary:hover {
+            background: #e0e0e0;
+        }
+
+        @media (max-width: 1400px) {
+            .main-grid {
+                grid-template-columns: 350px 1fr 400px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .column {
+                overflow-y: visible;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CV Evaluation System</h1>
+        <p>By Ghaly</p>
+    </div>
+
+    <div class="container">
+        <div class="main-grid">
+            <!-- Top Section: Upload & Evaluation -->
+            <div class="top-section">
+                <!-- Upload -->
+                <div class="column">
+                    <div class="card">
+                        <h2><span class="step-number">1</span> Upload Files</h2>
+                        <div class="form-group">
+                            <label for="cvFile">CV (PDF)</label>
+                            <input type="file" id="cvFile" accept=".pdf">
+                        </div>
+                        <div class="form-group">
+                            <label for="reportFile">Project Report (PDF)</label>
+                            <input type="file" id="reportFile" accept=".pdf">
+                        </div>
+                        <button onclick="uploadFiles()">Upload Files</button>
+                        <div id="uploadResponse" class="response-box"></div>
+                    </div>
+                </div>
+
+                <!-- Start Evaluation -->
+                <div class="column">
+                    <div class="card">
+                        <h2><span class="step-number">2</span> Start Evaluation</h2>
+                        <div class="info-box">
+                            <strong>Auto-fill:</strong> IDs will populate after upload
+                        </div>
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title</label>
+                            <input type="text" id="jobTitle" value="Backend Developer" placeholder="e.g., Backend Developer">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvId">CV ID</label>
+                            <input type="text" id="cvId" placeholder="Auto-filled from upload">
+                        </div>
+                        <div class="form-group">
+                            <label for="reportId">Report ID</label>
+                            <input type="text" id="reportId" placeholder="Auto-filled from upload">
+                        </div>
+                        <button onclick="startEvaluation()">Start Evaluation</button>
+                        <div id="evaluateResponse" class="response-box"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section: Results & Jobs -->
+            <div class="bottom-section">
+                <!-- Check Result -->
+                <div class="column">
+                    <div class="card tall">
+                        <h2><span class="step-number">3</span> Evaluation Result</h2>
+                        <div class="form-group">
+                            <label for="jobId">Job ID</label>
+                            <input type="text" id="jobId" placeholder="Auto-filled from evaluation">
+                        </div>
+                        <div class="button-group">
+                            <button onclick="checkResult()">Check Result</button>
+                            <button onclick="autoRefresh()" class="btn-secondary" id="autoRefreshBtn">Auto Refresh OFF</button>
+                        </div>
+                        <div id="resultResponse" class="response-box"></div>
+                    </div>
+                </div>
+
+                <!-- All Jobs -->
+                <div class="column">
+                    <div class="card tall">
+                        <h2><span class="step-number">4</span> All Jobs</h2>
+                        <div class="button-group">
+                            <button onclick="listJobs()">Refresh</button>
+                            <button onclick="listJobs('completed')" class="btn-success">Completed</button>
+                            <button onclick="listJobs('processing')" class="btn-secondary">Processing</button>
+                        </div>
+                        <div class="jobs-container" id="jobsList">
+                            <p style="text-align: center; color: #999; padding: 30px;">Loading jobs...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:5001/api';
+        let autoRefreshInterval = null;
+
+        async function uploadFiles() {
+            const cvFile = document.getElementById('cvFile').files[0];
+            const reportFile = document.getElementById('reportFile').files[0];
+            const responseDiv = document.getElementById('uploadResponse');
+
+            if (!cvFile || !reportFile) {
+                showResponse(responseDiv, 'Please select both CV and Report files', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('cv', cvFile);
+            formData.append('report', reportFile);
+
+            try {
+                responseDiv.innerHTML = '<p>Uploading... <span class="loading"></span></p>';
+                responseDiv.className = 'response-box show';
+
+                const response = await fetch(`${API_BASE}/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('cvId').value = data.cv_id;
+                    document.getElementById('reportId').value = data.report_id;
+                    showResponse(responseDiv, 'Files uploaded successfully!', 'success', data);
+                } else {
+                    showResponse(responseDiv, 'Upload failed', 'error', data);
+                }
+            } catch (error) {
+                showResponse(responseDiv, 'Error: ' + error.message, 'error');
+            }
+        }
+
+        async function startEvaluation() {
+            const jobTitle = document.getElementById('jobTitle').value;
+            const cvId = document.getElementById('cvId').value;
+            const reportId = document.getElementById('reportId').value;
+            const responseDiv = document.getElementById('evaluateResponse');
+
+            if (!jobTitle || !cvId || !reportId) {
+                showResponse(responseDiv, 'Please fill all fields', 'error');
+                return;
+            }
+
+            try {
+                responseDiv.innerHTML = '<p>Starting evaluation... <span class="loading"></span></p>';
+                responseDiv.className = 'response-box show';
+
+                const response = await fetch(`${API_BASE}/evaluate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ job_title: jobTitle, cv_id: cvId, report_id: reportId })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok || response.status === 202) {
+                    document.getElementById('jobId').value = data.job_id;
+                    showResponse(responseDiv, 'Evaluation started!', 'success', data);
+                    listJobs();
+                } else {
+                    showResponse(responseDiv, 'Evaluation failed', 'error', data);
+                }
+            } catch (error) {
+                showResponse(responseDiv, 'Error: ' + error.message, 'error');
+            }
+        }
+
+        async function checkResult() {
+            const jobId = document.getElementById('jobId').value;
+            const responseDiv = document.getElementById('resultResponse');
+
+            if (!jobId) {
+                showResponse(responseDiv, 'Please enter Job ID', 'error');
+                return;
+            }
+
+            try {
+                responseDiv.innerHTML = '<p>Fetching result... <span class="loading"></span></p>';
+                responseDiv.className = 'response-box show';
+
+                const response = await fetch(`${API_BASE}/result/${jobId}`);
+                const data = await response.json();
+                
+                const statusClass = data.status === 'completed' ? 'success' : 
+                                   data.status === 'failed' ? 'error' : '';
+                
+                if (data.status === 'completed' && data.result) {
+                    showDetailedResult(responseDiv, data);
+                } else {
+                    showResponse(responseDiv, `Status: ${data.status}`, statusClass, data);
+                }
+                
+                listJobs();
+            } catch (error) {
+                showResponse(responseDiv, 'Error: ' + error.message, 'error');
+            }
+        }
+
+        function showDetailedResult(div, data) {
+            const result = data.result;
+            let html = `
+                <div class="result-summary">
+                    <h3>Evaluation Completed</h3>
+                    <p style="font-size: 0.85rem;"><strong>Recommendation:</strong> <span class="status-badge status-completed">${result.recommendation}</span></p>
+                    <p style="font-size: 0.85rem;"><strong>Overall Score:</strong> <span style="font-size: 1.1rem; font-weight: 800; color: #000;">${result.overall_score.toFixed(2)}/5.0</span></p>
+                    
+                    <div class="score-grid">
+                        <div class="score-item">
+                            <div class="score-label">CV Match Rate</div>
+                            <div class="score-value">${(result.cv_evaluation.cv_match_rate * 100).toFixed(0)}%</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Project Score</div>
+                            <div class="score-value">${result.project_evaluation.project_score.toFixed(1)}/5</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Technical Skills (40%)</div>
+                            <div class="score-value">${result.cv_evaluation.technical_match}/5</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Experience Level (25%)</div>
+                            <div class="score-value">${result.cv_evaluation.experience_score}/5</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Achievements (20%)</div>
+                            <div class="score-value">${result.cv_evaluation.achievements_score}/5</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Cultural Fit (15%)</div>
+                            <div class="score-value">${result.cv_evaluation.cultural_fit_score}/5</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Correctness (30%)</div>
+                            <div class="score-value">${result.project_evaluation.correctness_score}/5</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Code Quality (25%)</div>
+                            <div class="score-value">${result.project_evaluation.code_quality_score}/5</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Resilience (20%)</div>
+                            <div class="score-value">${result.project_evaluation.resilience_score}/5</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Documentation (15%)</div>
+                            <div class="score-value">${result.project_evaluation.documentation_score}/5</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Creativity (10%)</div>
+                            <div class="score-value">${result.project_evaluation.creativity_score || 0}/5</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-section">
+                        <h3 style="margin-bottom: 12px; color: #333; font-size: 1.1rem;">Overall Summary</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.7; color: #555; background: #f8f9fa; padding: 16px; border-radius: 6px; border-left: 4px solid #333;">${result.final_summary}</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Full JSON Response</summary>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                </details>
+            `;
+            div.innerHTML = html;
+            div.className = 'response-box show success';
+        }
+
+        function autoRefresh() {
+            const btn = document.getElementById('autoRefreshBtn');
+            
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+                autoRefreshInterval = null;
+                btn.textContent = 'Auto Refresh OFF';
+                btn.className = 'btn-secondary';
+            } else {
+                autoRefreshInterval = setInterval(() => {
+                    checkResult();
+                    listJobs();
+                }, 5000);
+                btn.textContent = 'Auto Refresh ON';
+                btn.className = 'btn-success';
+                checkResult();
+            }
+        }
+
+        async function listJobs(status = '') {
+            const container = document.getElementById('jobsList');
+
+            try {
+                const url = status ? `${API_BASE}/jobs?status=${status}` : `${API_BASE}/jobs`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (response.ok && data.jobs && data.jobs.length > 0) {
+                    let html = '';
+                    
+                    data.jobs.forEach(job => {
+                        const statusClass = `status-${job.status}`;
+                        html += `
+                            <div class="job-item" onclick="document.getElementById('jobId').value='${job.id}'; checkResult();">
+                                <div class="job-header">
+                                    <span class="job-title">${job.job_title}</span>
+                                    <span class="status-badge ${statusClass}">${job.status}</span>
+                                </div>
+                                <div class="job-meta">
+                                    <strong>ID:</strong> ${job.id.substring(0, 8)}...<br>
+                                    <strong>Created:</strong> ${new Date(job.created_at).toLocaleString()}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<p style="text-align: center; color: #999; padding: 30px;">No jobs found</p>';
+                }
+            } catch (error) {
+                container.innerHTML = `<p style="text-align: center; color: #f5576c; padding: 30px;">Error: ${error.message}</p>`;
+            }
+        }
+
+        function showResponse(div, message, type, data = null) {
+            let html = `<p><strong>${message}</strong></p>`;
+            if (data) {
+                html += `<details><summary>View JSON</summary><pre>${JSON.stringify(data, null, 2)}</pre></details>`;
+            }
+            div.innerHTML = html;
+            div.className = `response-box show ${type}`;
+        }
+
+        window.addEventListener('load', () => {
+            listJobs();
+        });
+    </script>
+</body>
+</html>

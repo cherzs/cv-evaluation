@@ -1,0 +1,40 @@
+# Core Framework
+Flask==3.0.0
+Flask-CORS==4.0.0
+Flask-SQLAlchemy==3.1.1
+
+# Async Processing
+celery==5.3.4
+redis==5.0.1
+
+# Database
+SQLAlchemy==2.0.23
+alembic==1.13.0
+
+# Vector Store
+chromadb==0.4.18
+sentence-transformers==2.7.0
+numpy<2.0.0  # ChromaDB 0.4.18 requires numpy < 2.0
+huggingface-hub>=0.20.0  # For sentence-transformers compatibility
+
+# LLM
+google-generativeai==0.3.2
+
+# PDF Processing
+PyPDF2==3.0.1
+
+# Utilities
+python-dotenv==1.0.0
+python-multipart==0.0.6
+pydantic==2.5.2
+tenacity==8.2.3
+
+# Validation & Serialization
+marshmallow==3.20.1
+
+# Development
+pytest==7.4.3
+pytest-cov==4.1.0
+black==23.12.1
+flake8==6.1.0
+
